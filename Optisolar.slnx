@@ -1,9 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="ARM" />
-    <Platform Name="ARM64" />
-  </Configurations>
-  <Project Path="Optisolar.vcxproj">
-    <Deploy />
-  </Project>
-</Solution>
