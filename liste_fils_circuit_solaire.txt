@@ -1,0 +1,131 @@
+LISTE DES FILS DU CIRCUIT SOLAIRE RASPBERRY PI 4B
+===================================================
+Toutes les connexions filaires, leur origine, destination et rôle.
+
+FIL | DE (composant + broche) | VERS (composant + broche) | RÔLE
+----|-------------------------|---------------------------|-----
+
+W01 | Panneau Solaire 12V (+) | Relais K1 (COM)           | Achemine le courant 12V du panneau vers le contact commun du relais. Quand le relais est fermé (batterie non pleine), le courant passe vers la batterie.
+
+W02 | Panneau Solaire 12V (+) | R1 180kΩ (entrée)         | Dérive une partie du courant 12V vers le pont diviseur pour mesurer la tension du panneau sans surcharger le RPi.
+
+W03 | Panneau Solaire 12V (-) | GND commun (RPi GND)      | Relie le pôle négatif du panneau au GND commun du système. Indispensable pour fermer le circuit.
+
+W04 | R1 180kΩ (sortie)       | R2 33kΩ (entrée)          | Connecte les deux résistances du pont diviseur. Le nœud entre R1 et R2 donne la tension mesurable (~1.86V pour 12V panneau).
+
+W05 | Nœud R1/R2              | ADS1115 AIN1              | Transmet la tension réduite du pont diviseur (1.86V max) à l'entrée analogique AIN1 du convertisseur ADC. Permet au RPi de connaître la tension du panneau.
+
+W06 | R2 33kΩ (sortie)        | GND commun                | Relie le bas du pont diviseur au GND. Nécessaire pour que le pont diviseur fonctionne correctement.
+
+W07 | ADS1115 (GND)           | GND commun                | Relie la masse du shield ADC au GND commun. Nécessaire pour la référence de mesure du convertisseur.
+
+W08 | Relais K1 (NO)          | Batterie 6V (+)           | Quand le relais est activé (batterie non pleine), relie le contact NO au pôle + de la batterie, permettant la charge depuis le panneau solaire.
+
+W09 | RPi 5V (pin 5V)         | Relais K1 (VCC bobine)    | Alimente la bobine du module relais en 5V. Le module relais intègre déjà transistor et résistance — aucun composant supplémentaire n'est nécessaire.
+
+W10 | RPi GPIO17              | Relais K1 (IN)            | Signal de commande du relais. GPIO17=HIGH → relais fermé (charge batterie). GPIO17=LOW → relais ouvert (batterie pleine ou protection). Connexion directe car le module relais est déjà protégé.
+
+W11 | Relais K1 (GND bobine)  | GND commun                | Retour de masse de la bobine du relais. Ferme le circuit d'alimentation de la bobine.
+
+W12 | Batterie 6V (+)         | RPi T-Cobbler (5V)        | Alimente le Raspberry Pi via le buck converter 6V→5V. La batterie est la source d'énergie principale du RPi (stockage solaire).
+
+W13 | Batterie 6V (+)         | ULN2003 #1 (VCC)          | Alimente le driver moteur 1. Les moteurs 28BYJ-48 nécessitent 5-6V, la batterie 6V est parfaite.
+
+W14 | Batterie 6V (+)         | ULN2003 #2 (VCC)          | Alimente le driver moteur 2. Même raison que W13.
+
+W15 | Batterie 6V (-)         | GND commun                | Relie le pôle négatif de la batterie au GND commun. Ferme le circuit d'alimentation générale.
+
+W16 | RPi GND (pin GND)       | RPi GND (pin GND-2)       | Connexion interne GND du T-Cobbler pour s'assurer que toutes les broches GND du breakout sont reliées.
+
+W17 | RPi GPIO5               | ULN2003 #1 (IN1)          | 1er signal de commande du moteur pas-à-pas 1. Les 4 fils (W17-W20) commandent les 4 bobines du 28BYJ-48 en séquence.
+
+W18 | RPi GPIO6               | ULN2003 #1 (IN2)          | 2ème signal de commande moteur 1.
+
+W19 | RPi GPIO13              | ULN2003 #1 (IN3)          | 3ème signal de commande moteur 1.
+
+W20 | RPi GPIO19              | ULN2003 #1 (IN4)          | 4ème signal de commande moteur 1. Séquence GPIO5→6→13→19 = rotation moteur 1.
+
+W21 | ULN2003 #1 (GND)        | GND commun                | Masse du driver moteur 1. Nécessaire pour le retour de courant des bobines moteur.
+
+W22 | ULN2003 #1 (OUT1/BLUE)  | Moteur 1 (fil bleu)       | Commande bobine 1 moteur 1. Le ULN2003 amplifie le signal GPIO (3.3V/~1mA) pour piloter la bobine (6V/300mA).
+
+W23 | ULN2003 #1 (OUT2/PINK)  | Moteur 1 (fil rose)       | Commande bobine 2 moteur 1.
+
+W24 | ULN2003 #1 (OUT3/YELLOW)| Moteur 1 (fil jaune)      | Commande bobine 3 moteur 1.
+
+W25 | ULN2003 #1 (OUT4/ORANGE)| Moteur 1 (fil orange)     | Commande bobine 4 moteur 1.
+
+W26 | RPi GPIO22              | ULN2003 #2 (IN1)          | 1er signal de commande moteur 2.
+
+W27 | RPi GPIO23              | ULN2003 #2 (IN2)          | 2ème signal de commande moteur 2.
+
+W28 | RPi GPIO24              | ULN2003 #2 (IN3)          | 3ème signal de commande moteur 2.
+
+W29 | RPi GPIO25              | ULN2003 #2 (IN4)          | 4ème signal de commande moteur 2. Séquence GPIO22→23→24→25 = rotation moteur 2.
+
+W30 | ULN2003 #2 (GND)        | GND commun                | Masse driver moteur 2.
+
+W31 | ULN2003 #2 (OUT1/BLUE)  | Moteur 2 (fil bleu)       | Commande bobine 1 moteur 2.
+
+W32 | ULN2003 #2 (OUT2/PINK)  | Moteur 2 (fil rose)       | Commande bobine 2 moteur 2.
+
+W33 | ULN2003 #2 (OUT3/YELLOW)| Moteur 2 (fil jaune)      | Commande bobine 3 moteur 2.
+
+W34 | ULN2003 #2 (OUT4/ORANGE)| Moteur 2 (fil orange)     | Commande bobine 4 moteur 2.
+
+W35 | RPi GPIO18              | LED rouge (+)             | Signal de commande LED. GPIO18=HIGH → LED allumée. Utilisé comme indicateur d'état (ex: batterie faible, système actif). Connexion directe GPIO → LED (attention: courant limité GPIO).
+
+W36 | LED rouge (-)           | GND commun                | Retour de masse de la LED. Ferme le circuit LED.
+
+===================================================
+RÉSUMÉ DES COMPOSANTS
+===================================================
+
+Panneau solaire 12V 50W
+  → Source d'énergie principale
+  → Charge la batterie via le relais
+
+R1 (180kΩ) + R2 (33kΩ) = Pont diviseur
+  → Réduit 12V → 1.86V pour mesure ADC
+  → Formule: Vout = 12V × 33/(180+33) = 1.86V
+
+ADS1115 ADC (shield GPIO)
+  → Convertit la tension analogique AIN1 en valeur numérique
+  → Communique avec RPi via I2C intégré au shield
+  → Seuls 2 fils externes: AIN1 + GND
+
+Relais 5V (module intégré)
+  → Coupe la charge quand batterie pleine
+  → Commandé par GPIO17
+  → Module intégré: transistor + résistance déjà inclus
+
+Batterie 6V
+  → Stockage énergie solaire
+  → Alimente RPi (via buck 6V→5V) et les moteurs
+
+Raspberry Pi 4B (via T-Cobbler)
+  → Cerveau du système
+  → Lit tension via ADS1115 (I2C)
+  → Commande relais (GPIO17)
+  → Pilote 2 moteurs (GPIO 5/6/13/19 et 22/23/24/25)
+  → Contrôle LED état (GPIO18)
+
+ULN2003A × 2 (drivers)
+  → Amplifient les signaux GPIO 3.3V pour piloter les bobines 6V
+  → Protègent le RPi des courants moteur
+
+28BYJ-48 × 2 (moteurs pas-à-pas)
+  → Actionneurs mécaniques
+  → 4 bobines commandées en séquence = rotation précise
+
+LED rouge
+  → Indicateur visuel état système
+
+===================================================
+TENSIONS DU CIRCUIT
+===================================================
+12V : Panneau solaire → Relais → Batterie (charge)
+ 6V : Batterie → Moteurs (via ULN2003)
+ 5V : Batterie → RPi (via buck converter)
+3.3V: RPi interne → GPIO → Signaux de commande
+1.86V: Pont diviseur → ADS1115 (mesure tension panneau)
