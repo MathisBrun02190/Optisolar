@@ -3,7 +3,20 @@
     <Platform Name="ARM" />
     <Platform Name="ARM64" />
   </Configurations>
-  <Project Path="Optisolar.vcxproj">
+  <Folder Name="/uml/">
+    <File Path="../../../Desktop/CMultimetre.cpp" />
+    <File Path="../../../Desktop/CMultimetre.h" />
+    <File Path="../../../Desktop/CSysteme.cpp" />
+    <File Path="../../../Desktop/CSysteme.h" />
+    <File Path="../testgpio/CGest_Lampe.cpp" />
+    <File Path="../testgpio/CGest_Lampe.h" />
+    <File Path="../testgpio/CMoteur.cpp" />
+    <File Path="../testgpio/CMoteur.h" />
+  </Folder>
+  <Project Path="../testgpio/testgpio.vcxproj" Id="8b322d23-aa0d-48a2-a595-f5ff7cbc3b72">
+    <Deploy />
+  </Project>
+  <Project Path="Optisolar.vcxproj" Id="288b52f5-2722-49e7-bb68-82a5cc6d46a4">
     <Deploy />
   </Project>
 </Solution>

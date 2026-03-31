@@ -18,6 +18,10 @@
       <Platform>ARM64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="test2.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{288b52f5-2722-49e7-bb68-82a5cc6d46a4}</ProjectGuid>
     <Keyword>Linux</Keyword>
@@ -66,13 +70,6 @@
       <Message>exporte la broche 17 à l'aide de l'utilitaire gpio pour nous permettre d'exécuter le programme blink sans sudo</Message>
     </RemotePostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <CppLanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">c++17</CppLanguageStandard>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
