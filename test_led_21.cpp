@@ -4,7 +4,7 @@
 
 #include <pigpio.h>
 
-const std::vector<int> LED_PINS = { 19, 13 };
+const std::vector<int> LED_PINS = { 21 };
 
 int main() {
 
