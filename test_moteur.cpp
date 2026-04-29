@@ -6,7 +6,7 @@
 const std::vector<int> MOTOR1 = { 4, 27, 22, 17 };
 const std::vector<int> MOTOR2 = { 18, 23, 24, 25 };
 
-// Séquence de pas (full-step)
+// SÃ©quence de pas (full-step)
 const int SEQ[8][4] = {
     {1, 0, 0, 0},
     {1, 1, 0, 0},
@@ -34,7 +34,7 @@ int main() {
     for (int pin : MOTOR1) gpioSetMode(pin, PI_OUTPUT);
     for (int pin : MOTOR2) gpioSetMode(pin, PI_OUTPUT);
 
-    std::cout << "Les deux moteurs tournent...ou pas" << std::endl;
+    std::cout << "Les deux moteurs tournent" << std::endl;
 
     while (true) {
         for (int step = 0; step < 8; step++) {
