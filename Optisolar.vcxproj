@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="moteur.cpp" />
+    <ClCompile Include="Relais.cpp" />
+    <ClCompile Include="test_adc.cpp" />
     <ClCompile Include="test_led_21.cpp" />
     <ClCompile Include="test_moteur.cpp" />
   </ItemGroup>
